@@ -8,8 +8,6 @@
 
 # Sources
 
-#Arthur Mengual
-
 # License
 
 #none

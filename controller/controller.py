@@ -1,9 +1,8 @@
 from tinydb import TinyDB
 from model import tournoi as tour
 from view import views
-from model import round as rnd
-from model import player as play
-
+from model.round import Round
+from model.player import Player
 db = TinyDB('chess.json')
 
 
@@ -40,7 +39,7 @@ class Controller:
                 print("Trop de joueurs")
                 self.main_menu()
 
-            new_player = play.Player(nom, prenom)   
+            new_player = Player(nom, prenom)   
             print('Player added')
 
             self.main_menu()
@@ -48,7 +47,7 @@ class Controller:
 
         elif user_answer == 2:
             # self.generate_rounds()
-            new_round = rnd.Round()
+            new_round = Round()
             self.tournament.add_round(new_round)
             self.get_next_round()
             self.main_menu()

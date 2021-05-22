@@ -35,8 +35,9 @@ class Controller:
             self.main_menu()
         elif user_answer == 1:
             # utiliser class player pour creer nouveau player
-            # Nom? Prenom?
+            # Nom? Prenom? avec inputs
             new_player = play.Player(nom, prenom)
+
             if self.tournament.add_player(new_player):   # true
                 print('Player added')
             else:                                   # false

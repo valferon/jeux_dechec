@@ -6,7 +6,7 @@ db = TinyDB('chess.json')
 class Tournoi:
 
     def __init__(self, name, place, date,
-                 number_of_tours=4, players=[], rounds=[],
+                 number_of_tours=4, max_players=8, players=[], rounds=[],
                  time_control='bullet', comment=None):
         '''Class constructor'''
 
@@ -18,6 +18,7 @@ class Tournoi:
         self.rounds = rounds
         self.time_control = time_control
         self.comment = comment
+        self.max_players = max_players
 
     def set_comment(self, comment):
         self.comment = comment
@@ -34,6 +35,11 @@ class Tournoi:
     def add_round(self, Round):
         self.rounds.append(Round)
 
+    def add_player(self, Player):
+        if len(self.players) == self.max_players:
+            return False
+        self.players.append(Player)
+        return True
 
     def new_player():
         '''This function creates a new player and save it into a json file'''

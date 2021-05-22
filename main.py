@@ -6,7 +6,9 @@ db = TinyDB('chess.json')
 
 def main():
     '''main'''
-    ctrl = controller.Controller()
+
+    tournament = ""
+    ctrl = controller.Controller(tournament)
     ctrl.main_menu()
 
 

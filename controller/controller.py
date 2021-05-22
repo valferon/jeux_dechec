@@ -10,54 +10,56 @@ db = TinyDB('chess.json')
 class Controller:
     '''class controller'''
 
-    def __init__(self):
-        pass
+    def __init__(self, tournament):
+        self.tournament = tournament
+
 
     def main_menu(self):
         '''docstring'''
 
-
-        #######################################################
-        user_start = views.Views.print_start()
-        if user_start == 1:
-            tournament = tour.Tournoi(input(' New tournament: \n Tournament_s name '), input(' place '), input(' date '))
-        elif user_start == 2:
-            tournament = self.load_tournament_from_db(1)
-        
-        print(tournament)
-        #######################################################
-
+        if self.tournament == "":
+            #######################################################
+            user_start = views.Views.print_start()
+            if user_start == 1:
+                self.tournament = tour.Tournoi(input(' New tournament: \n Tournament_s name '), input(' place '), input(' date '))
+            elif user_start == 2:
+                self.tournament = self.load_tournament_from_db(1)
+            #######################################################
+            
 
         user_answer = views.Views.print_main_menu()
         if user_answer == 1:
-            tournament = tour.Tournoi(input(' New tournament: \n Tournament_s name '), input(' place '), input(' date '))
-            tournament.save()
+            self.tournament = tour.Tournoi(input(' New tournament: \n Tournament_s name '), input(' place '), input(' date '))
+            self.tournament.save()
 
             self.main_menu()
-        elif user_answer == 2:
-            tour.Tournoi.new_player()
+        elif user_answer == 1:
+            # utiliser class player pour creer nouveau player
+            # Nom? Prenom?
+            new_player = play.Player(nom, prenom)
+            if self.tournament.add_player(new_player):   # true
+                print('Player added')
+            else:                                   # false
+                print('Max players already')
             self.main_menu()
-        elif user_answer == 3:
+
+
+        elif user_answer == 2:
             # self.generate_rounds()
+            new_round = rnd.Round()
+            self.tournament.add_round(new_round)
             self.get_next_round()
             self.main_menu()
-        elif user_answer == 4:
-            self.save()
-            self.main_menu()
-        elif user_answer == 5:
-            self.load()
-            self.main_menu()
-        elif user_answer == 6:
+      
+        elif user_answer == 3:
             self.erase_db()
             self.main_menu()
-        elif user_answer == 7:
-            pass
-            self.main_menu()
-        elif user_answer == 8:
+        elif user_answer == 4:
             self.generate_reports()
             self.main_menu()
-        else:
-            self.main_menu()
+        elif user_answer == 5:
+            print('Bye')
+            exit(0)
 
     def load_tournament_from_db(self, number):
         tournament_table = db.table('tournaments')
@@ -70,7 +72,7 @@ class Controller:
     def generate_rounds(self):
         '''docstrings'''
         # generate rounds
-        tournament = load_tournament_from_db()
+        tournament = self.load_tournament_from_db()
         continue_while = 0
         round_index = 1
 

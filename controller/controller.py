@@ -36,12 +36,13 @@ class Controller:
         elif user_answer == 1:
             # utiliser class player pour creer nouveau player
             # Nom? Prenom? avec inputs
-            new_player = play.Player(nom, prenom)
+            if self.tournament.check_max_players():
+                print("Trop de joueurs")
+                self.main_menu()
 
-            if self.tournament.add_player(new_player):   # true
-                print('Player added')
-            else:                                   # false
-                print('Max players already')
+            new_player = play.Player(nom, prenom)   
+            print('Player added')
+
             self.main_menu()
 
 

@@ -36,9 +36,11 @@ class Tournoi:
         self.rounds.append(Round)
 
     def add_player(self, Player):
+        self.players.append(Player)
+   
+    def check_max_players(self):
         if len(self.players) == self.max_players:
             return False
-        self.players.append(Player)
         return True
 
     def new_player():
